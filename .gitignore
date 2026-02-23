@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+venv/
+.env
+
+# Django static/media
+backend/staticfiles/
+backend/media/
+
+# Node
+node_modules/
+.next/
+out/
+
+# OS
+.DS_Store

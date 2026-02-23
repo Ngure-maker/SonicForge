@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00A9FF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FF6A00" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="#0A0B0F"/>
+  <rect x="80" y="80" width="1040" height="640" rx="32" fill="url(#g)" stroke="#1e2233"/>
+  <text x="50%" y="50%" text-anchor="middle" fill="#E6EAF2" font-family="Arial" font-size="48">SonicForge</text>
+</svg>

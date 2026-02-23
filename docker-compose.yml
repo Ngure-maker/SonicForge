@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sonicforge-postgres
+    restart: unless-stopped
+    env_file:
+      - backend/.env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-sonicforge}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sonicforge-backend
+    restart: unless-stopped
+    env_file:
+      - backend/.env
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+      - backend_media:/app/media
+    ports:
+      - '8000:8000'
+    command: >
+      sh -c "python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sonicforge-frontend
+    restart: unless-stopped
+    env_file:
+      - frontend/.env
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    command: npm run dev
+
+volumes:
+  postgres_data:
+  backend_media:
